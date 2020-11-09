@@ -63,8 +63,8 @@ body {
 
              .btn2 {
                 border-radius: 4px;
-                background-color: crimson;
-                border: none;
+                background-color: grey;
+                border: 2px solid crimson;
                 color: #FFFFFF;
                 text-align: center;
                 text-shadow: white;
@@ -76,22 +76,10 @@ body {
                 margin: 5px;
                 align-content: center;
                 
+            } 
+            .btn2:hover{
+              background-color: crimson; /* Green */
+              color: white;
             }
 
-            .btn2 span {
-                cursor: pointer;
-                display: inline-block;
-                position: relative;
-                transition: 0.5s;
-            }
-            .btn2:hover span {
-                padding-right: 25px;
-                
-            }
-
-            .btn2:hover span:after {
-                opacity: 1;
-                right: 0;
-                
-            }
-        
+            
