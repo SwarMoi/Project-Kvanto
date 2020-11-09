@@ -30,7 +30,7 @@ body {
             .btn {
                 border-radius: 4px;
                 background-color: #9db4c0;
-                border: none;
+                border: 2px solid limegreen;
                 color: #FFFFFF;
                 text-align: center;
                 text-shadow: white;
@@ -49,6 +49,10 @@ body {
                 display: inline-block;
                 position: relative;
                 transition: 0.5s;
+            }
+            .btn:hover{
+              background-color: limegreen; 
+              color: white;
             }
             .btn:hover span {
                 padding-right: 25px;
