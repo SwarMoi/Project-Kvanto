@@ -77,8 +77,8 @@ body {
                 align-content: center;
                 
             } 
-            .btn2:hover span{
-              background-color: crimson; /* Green */
+            .btn2:hover {
+              background-color: crimson; 
               color: white;
             }
 
