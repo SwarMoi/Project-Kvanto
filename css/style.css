@@ -1,6 +1,6 @@
-@import url('https://fonts.maateen.me/siyam-rupali/font.css');
+@import url('https://fonts.maateen.me/bensen/font.css');
 body {
-  font-family: 'SiyamRupali', sans-serif;             
+  font-family: 'BenSen', sans-serif;            
   background-color: powderblue;
             }
             
@@ -31,7 +31,7 @@ body {
            
             .btn {
                 border-radius: 4px;
-                font-family: 'SiyamRupali', sans-serif; 
+                font-family: 'BenSen', sans-serif;
                 background-color: #9db4c0;
                 border: 2px solid limegreen;
                 color: #FFFFFF;
@@ -70,7 +70,7 @@ body {
 
              .btn2 {
                 border-radius: 4px;
-                font-family: 'SiyamRupali', sans-serif;  
+                font-family: 'BenSen', sans-serif; 
                 background-color: grey;
                 border: 2px solid crimson;
                 color: #FFFFFF;
