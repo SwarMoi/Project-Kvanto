@@ -1,0 +1,514 @@
+// CONSTANTS
+var TODAY = new Date();
+var DD = String(TODAY.getDate()).padStart(2, '0');
+var MM = String(TODAY.getMonth() + 1).padStart(2, '0');
+var YYYY = TODAY.getFullYear();
+const DATE = YYYY + MM + DD;
+
+/* create timeline */
+    var timeline = [];
+    
+    var practice_trial = prac;
+    
+    /* combine trial information from the ambiguous word and filler arrays to use in the main task */
+     var main_trial=block[CONDITION - 1].concat(fnC);
+    //console.log('main' + JSON.stringify(main_trial))
+     
+    
+    // create list of all image files for preloading
+        var all_images = [];
+        for (var i=0; i<practice_trial.length; i++) {
+            all_images.push(practice_trial[i].t_image);
+        }
+        for (var i=0; i<main_trial.length; i++) {
+            all_images.push(main_trial[i].t_image);
+        }
+    
+        timeline.push({
+            type: 'fullscreen',
+            fullscreen_mode: true
+        }); 
+
+         
+
+        
+        var welcome_block = {
+            
+                type: 'html-button-response',
+                stimulus: function(){ 
+                var html = "<p style='text-align:center; font-weight: 550; font-size:40px;'>  আমাদের গবেষণায়  আপনাকে স্বাগত  !!!   <br><br>   <br></p>";
+                
+                html += "<p style='text-align:center;'>           সার্ভে চলাকালীন দয়া করে অন্য কাজ থেকে বিরত থাকুন।     <br><br>    <br>  </p>";
+                html += " <p style='text-align:center; font-weight: 750;'>            সার্ভে শুরু করতে পরবর্তী পেজ টিপুন।    <br><br>   <br><br>  <br>  </p>";                
+                return html;
+            },
+                choices : ['পরবর্তী  পেজ  '] , 
+
+            
+            
+        };
+        timeline.push(welcome_block) 
+  
+  //Insert DemoForm 1
+          
+        
+// PreForm - Minimum
+ 
+  var preform = {
+            
+    type: 'survey-html-form',
+    button_label : 'পরবর্তী  পেজ  ' ,
+    html:  
+    
+      '<div class="container" style="width:65em">' +
+      
+              '<div class="navigation"> <h2></h2>  </div>'+
+              
+                  
+                  '<div class="info">' +
+                  
+                    '<div class="label">নাম</div>' +  
+                
+                    '<div class="input">'+
+                      '<input id="input" size="26" placeholder=" অনামী থাকতে চাইলে ANON  লিখুন"   required="true" type="text" name="Pname">' +  
+                    '</div>'+
+                  '</div>'+
+                  
+                  
+                  
+                  '<div class="info">'+
+                    '<div class="label">বয়স  </div>' +
+                      
+                    '<div class="input">'+
+                      '<input type="number" size="6" input id="age" placeholder="  সংখ্যা লিখুন "  required="true" name="age"  >  ' +
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                  '<div class="info">'+
+                    '<div class="label">লিঙ্গ</div>' +
+                      
+                    '<div class="input">'+
+                      '<input type="radio" id="gender"   required="" name="gender"  value="male" >  ' +
+                      '<label for="male">পুরুষ  </label>'+
+                      '<input type="radio" id="gender"   required="" name="gender"  value="female" >  ' +
+                      '<label for="male">মহিলা   </label>'+
+                      '<input type="radio" id="gender"   required="" name="gender"  value="other" >  ' +
+                      '<label for="male"> অন্য </label>'+
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                  '<div class="info">' +
+                  
+                    '<div class="label"> জন্মস্থান  </div>' +  
+                
+                    '<div class="input">'+
+                      '<input id="input" size="26" placeholder=" ( গ্রাম/ শহর , রাজ্য )"   required="true" type="text" name="birthplace">' +  
+                    '</div>'+
+                  '</div>'+
+                  
+                  
+                  
+                  
+                   '<div class="info">'+
+                    '<div class="label"> জন্মস্থানে জন্মের পর থেকে কতদিন থেকেছেন ?    </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="lessThan3"  name="timeBirthplace" value="lessThan3" />' +
+                      '<label for="lessThan3">  ৩ বছরের কম   </label>'+
+                      '<input type="radio" id="between3-5"  name="timeBirthplace" value="between3-5"  />' +
+                      '<label for="between3-5">  ৩ থেকে ৫ বছরের মধ্যে </label>'+
+                      '<input type="radio" id="moreThan5"  name="timeBirthplace" value="moreThan5"  />' +
+                      '<label for="moreThan5">  ৫ বছরের বেশি  </label>'+
+                      
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                  '<div class="info">'+
+                    '<div class="label">  আপনার মাতৃভাষা কি বাংলা ?  </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="Y"  name="mTongue" value="Y"  />' +
+                      '<label for="Y">  হ্যাঁ   </label>'+
+                      '<input type="radio" id="N"  name="mTongue" value="N"  />' +
+                      '<label for="N">  না  </label>'+
+                      
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                 
+                  
+                
+      
+      '</div>' ,
+      on_finish: function(data) {
+            responses = JSON.parse(data.responses);
+            jsPsych.data.addProperties({
+                    part_ID: responses.Pname,
+                    ID_DATE: responses.Pname + "_"  + responses.gender + "_" + responses.age + "_" + DATE,
+                })
+            
+            }
+        
+        
+    };
+    
+    timeline.push(preform)    
+          
+
+  
+
+    /* define welcome message trial */
+    var welcome = {
+      type: "html-button-response",
+      
+      
+      stimulus: function(){ 
+                var html = "<p style='text-align:center; font-weight: 650; font-size:30px;'>    এই সার্ভের প্রতিটা প্রশ্নে আপনাকে একটা ছবি আর একটা বাক্য দেখানো হবে   । <br><br>   আপনাকে বলতে হবে বাক্যটা ছবিটাকে সঠিকভাবে বর্ণনা করছে কিনা।<br>   <br></p>";
+                
+                html += "<br><br><p style='text-align:center; font-size:20px;'>   <b>   সার্ভে  শুরু করতে পরবর্তী    পেজ    টিপুন    <br><br>   <br><br>  <br>  </p>";
+                
+                return html;
+            },
+      
+      choices : ['পরবর্তী  পেজ  '],
+    };
+    timeline.push(welcome);
+
+    
+  
+  
+    var condition_no = {
+      type: 'html-button-response',
+      //stimulus: '<p>Condition Number : ' + CONDITION +'</p>' + '<p> Block Number : ' + block[CONDITION - 1] + '<p>',
+      stimulus :"<p> Condition Number  </p>" + CONDITION,
+      choices: ['prev', 'next']
+    };
+    //timeline.push(condition_no);
+    
+    var prac_instruct = {
+      type: "html-button-response",
+      stimulus: "<p style='font-size:30px'> সার্ভে শুরু করার আগে ৩ টে প্র্যাকটিস প্রশ্ন   <br><br><br><br><br> <br> </p> ",
+      choices : ['পরবর্তী  পেজ  '] , 
+    };
+    timeline.push(prac_instruct);  
+  
+    
+    var fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<span style="font-size:40px;">+</span>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 500,
+            data: {
+                trial_part: 'fixation', 
+                task_part: jsPsych.timelineVariable('task_part')
+            }
+        };
+    
+    var target = {
+            type: 'html-button-response',
+            stimulus: function(){ 
+                var html = "<p style='text-align:center; font-weight: 550; font-size:38px;'>"+jsPsych.timelineVariable('t_sentence', true)+"<br><br><br></p>";
+                html += "<br><img style='max-width:700px; max-height:450px; min-width:300px;' src='"+jsPsych.timelineVariable('t_image', true)+"'>";
+                //html += "<p style='text-align:center;'>"+jsPsych.timelineVariable('condition', true)+ "</p>";
+                //html += "<p style='text-align:center;'>"+jsPsych.timelineVariable('key', true)+ "</p>";
+                //html += "<p style='text-align:center;'>"+jsPsych.timelineVariable('c_response', true)+ "</p>";
+                return html;
+            },
+            button_html: ['<button class="jspsych-btn"  style = "padding: 10px 20px; font-size: 20px; font-weight:800; ">%choice%</button>', '<button class="jspsych-btn" style = " padding: 10px 20px; font-size: 20px; font-weight: 800; ">%choice%</button>'],
+            margin_vertical : '35px',
+            margin_horizontal : '120px',
+            //prompt: '<span style="font-size:40px;">+</span>',
+            choices: ['হ্যাঁ' , 'না' ] ,
+            data: {
+                key: jsPsych.timelineVariable('key'),
+                t_sentence: jsPsych.timelineVariable('t_sentence'),
+                t_image: jsPsych.timelineVariable('t_image'),
+                condition: jsPsych.timelineVariable('condition'),
+                c_response: jsPsych.timelineVariable('c_response'),
+                task_part: jsPsych.timelineVariable('task_part'),
+                
+            },
+            on_finish: function(data) {
+                var acc = false;
+                var cr = 1;
+                
+                if (data.c_response == "T"){
+                  var cr = 0;
+                }
+                if (cr == data.button_pressed) {
+                    acc = true;
+                }
+                data.accuracy = acc;
+                
+              
+            }
+            
+    };
+    
+    var feedback = {
+            type: 'html-keyboard-response',
+            stimulus: function() {
+                var feedback_text = '<span style="color:red;font-size:40px;"> ভুল <br><br> দয়া করে মনোযোগ দিয়ে পড়ুন  </span>';
+                var last_resp_acc = jsPsych.data.getLastTrialData().values()[0].accuracy;
+                if (last_resp_acc == true) {
+                    feedback_text = '<span style="color:green;font-size:40px;">  ঠিক  </span>'
+                }
+                return feedback_text;
+            },
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 3000
+        };
+    
+     var Practice_msg = {
+      type: "html-button-response",
+      stimulus: "<p  style='font-size:30px;'>     বাক্যটা ছবিটাকে সঠিকভাবে বর্ণনা করছে কি?  <br><br> <br><br><br></p>",
+      choices : ['পরবর্তী  পেজ  ' ], 
+    
+    };
+    //timeline.push(Practice_msg);
+    
+    var prac_procedure = {
+            timeline: [fixation, target, feedback ],
+            timeline_variables: practice_trial,
+            randomize_order: true
+        };
+    timeline.push(prac_procedure);
+    
+     var start_task = {
+            type: 'html-button-response',
+            stimulus: "<p style='font-size:30px; font-weight:550;'> এবার আপনি সার্ভের জন্য তৈরি!  <br><br></p><p  style='font-size:30px; font-weight:850;'>   আপনার উত্তর ঠিক হয়েছে না ভুল তা আর জানানো হবে না।        <br><br></p>",
+            choices: ['পরবর্তী  পেজ  ' ],
+          
+        }
+    timeline.push(start_task);
+    
+    var Main_msg = {
+      type: "html-button-response",
+      stimulus: "<p style='font-size:40px'> সার্ভে  <br><br><br></p>"    + 
+                "<p style='font-size:30px'>  এই সার্ভের প্রতিটা প্রশ্নে আপনাকে একটা ছবি আর একটা বাক্য দেখানো হবে   । <br><br>   আপনাকে বলতে হবে বাক্যটা ছবিটাকে সঠিকভাবে বর্ণনা করছে কিনা।<br>   <br>   <br>   <br><br></p>   <p stlye='font-size:22px;'> আমরা আপনার স্বতঃস্ফূর্ত প্রতিক্রিয়া জানতে উৎসাহী। অনেক বেশি সময় ধরে চিন্তা করে বা আলোচনা করে উত্তর দেবার প্রয়োজন নেই। <br><br><br>  </p>",
+      choices: ['পরবর্তী  পেজ  '],  
+    };
+    timeline.push(Main_msg);
+
+
+    var main_procedure = {
+            timeline: [fixation, target],
+            timeline_variables: main_trial,
+            randomize_order: true
+        };
+    timeline.push(main_procedure);
+        
+    var end_screen = {
+            type: 'html-button-response',
+            stimulus: "<p style='font-size:30px'>   আমাদের সার্ভে এখানেই শেষ!  <br> <br>        পরবর্তী পেজে আমরা আপনার থেকে অল্প কিছু তথ্য সংগ্রহ করব।          <br><br><br><br>  </p>",
+                      
+            choices: ['পরবর্তী  পেজ  '], 
+        };
+    timeline.push(end_screen);    
+        
+        
+        
+    //Insert DemoForm 2      
+    
+    
+       var postform = {
+    
+          type: 'survey-html-form',
+          button_label : 'পরবর্তী  পেজ ',
+          html: 
+          '<div class="container" style="width:65em">' +
+    
+              '<div class="navigation"> <h2></h2>  </div>'+
+              
+              
+                  '<div class="info">'+
+                    '<div class="label">   ইমেল </div>' +
+                      
+                    '<div class="input">'+
+                      '<input type="email" size="16"  placeholder="   সঠিক  gmail id দিন "  required="true" name="email" >  ' +
+                    '</div>' +
+                         
+                  '</div>'+ 
+              
+                  
+                  '<div class="info">'+
+                    '<div class="label">  শিক্ষাগত যোগ্যতা  </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio"   name="edu" value="school"  />' +
+                      '<label for="school">  স্কুল   </label>'+
+                      '<input type="radio"  name="edu" value="Hschool"  />' +
+                      '<label for="Hschool">  হাই স্কুল   </label>'+
+                      '<input type="radio"  name="edu" value="college"  />' +
+                      '<label for="college">  কলেজ   </label>'+
+                      '<input type="radio"  name="edu" value="university"  />' +
+                      '<label for="university">  বিশ্ববিদ্যালয়  </label>'+
+                      
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+        
+                  
+                  '<div class="info">'+
+                    '<div class="label">    আপনি      কি    বাঁ-হাতি,  ডান-হাতি, না  সব্যসাচী ?    </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="lessThan3"  name="handedness" value="left-handed" />' +
+                      '<label for="lessThan3">  বাঁ-হাতি    </label>'+
+                      '<input type="radio" id="between3-5"  name="handedness" value="right-handed"  />' +
+                      '<label for="between3-5"> ডান-হাতি    </label>'+
+                      '<input type="radio" id="moreThan5"  name="handedness" value="both-handed"  />' +
+                      '<label for="moreThan5">    সব্যসাচী   </label>'+
+                      
+                    '</div>' +
+                         
+                  '</div>'+ 
+
+              
+                  '<div class="info">'+                  
+                    '<div class="label">     বাংলা ছাড়া অন্য কি-কি ভাষা জানেন ?  </div>' +  
+                
+                    '<div class="input">'+
+                      '<input id="input" size="26" placeholder=" ( ভাষার তালিকা )"   required="true" type="text" name="langknown">' +  
+                    '</div>'+
+                  '</div>'+
+                  
+                  
+                  '<div class="info">'+                  
+                    '<div class="label">  বর্তমান বাসস্থান  </div>' +  
+                
+                    '<div class="input">'+
+                      '<input id="input" size="26" placeholder=" ( গ্রাম/ শহর , রাজ্য )"   required="true" type="text" name="pResidence">' +  
+                    '</div>'+
+                  '</div>'+
+                  
+                  '<div class="info">'+
+                    '<div class="label">  বর্তমান বাসস্থানে কতদিন হল আছেন ?    </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="lessThan3"  name="timeResidence" value="lessThan3" />' +
+                      '<label for="lessThan3">  ৩ বছরের কম   </label>'+
+                      '<input type="radio" id="between3-5"  name="timeResidence" value="between3-5"  />' +
+                      '<label for="between3-5">  ৩ থেকে ৫ বছরের মধ্যে </label>'+
+                      '<input type="radio" id="moreThan5"  name="timeResidence" value="moreThan5"  />' +
+                      '<label for="moreThan5">  ৫ বছরের বেশি  </label>'+
+                      
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                   '<div class="info">'+
+                    '<div class="label">  </div>' +
+                      
+                    '<div class="input">'+
+                      
+                       '<div class = "input"><h4>কম (১) &#8592;&#8594 (৫) বেশি<h4> </div>'+
+                      
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                 
+                  
+                  '<div class="info">'+
+                    '<div class="label">   আপনি   বাংলা<b> পড়ায়  </b> কতটা সাবলীল  ?  </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="1"  name="benRead" value="1" />' +
+                      '<label for="1">  ১  </label>'+
+                      '<input type="radio" id="2"  name="benRead" value="2"  />' +
+                      '<label for="2">  ২   </label>'+
+                      '<input type="radio" id="3"  name="benRead" value="3"  />' +
+                      '<label for="3">  ৩   </label>'+
+                      '<input type="radio" id="4"  name="benRead" value="4"  />' +
+                      '<label for="4">  ৪    </label>'+
+                      '<input type="radio" id="5"  name="benRead" value="5"  />' +
+                      '<label for="5">  ৫   </label>'+
+
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                  '<div class="info">'+
+                    '<div class="label">   আপনি   বাংলা<b> লেখায় </b> কতটা সাবলীল  ?  </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="1"  name="benWrite" value="1" />' +
+                      '<label for="1">  ১  </label>'+
+                      '<input type="radio" id="2"  name="benWrite" value="2"  />' +
+                      '<label for="2">  ২   </label>'+
+                      '<input type="radio" id="3"  name="benWrite" value="3"  />' +
+                      '<label for="3">  ৩   </label>'+
+                      '<input type="radio" id="4"  name="benWrite" value="4"  />' +
+                      '<label for="4">  ৪    </label>'+
+                      '<input type="radio" id="5"  name="benWrite" value="5"  />' +
+                      '<label for="5">  ৫   </label>'+
+
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                   '<div class="info">'+
+                    '<div class="label">   আপনি   বাংলা<b> বলায় </b> কতটা সাবলীল  ?  </div>' +
+                      
+                    '<div class="input">'+
+                      
+                      '<input type="radio" id="1"  name="benSpeak" value="1" />' +
+                      '<label for="1">  ১  </label>'+
+                      '<input type="radio" id="2"  name="benSpeak" value="2"  />' +
+                      '<label for="2">  ২   </label>'+
+                      '<input type="radio" id="3"  name="benSpeak" value="3"  />' +
+                      '<label for="3">  ৩   </label>'+
+                      '<input type="radio" id="4"  name="benSpeak" value="4"  />' +
+                      '<label for="4">  ৪    </label>'+
+                      '<input type="radio" id="5"  name="benSpeak" value="5"  />' +
+                      '<label for="5">  ৫   </label>'+
+
+                    '</div>' +
+                         
+                  '</div>'+ 
+                  
+                  
+                
+                
+      
+      '</div>' ,
+  }
+  timeline.push(postform)      
+    
+          var bye = {
+            type: "html-button-response",
+            stimulus: "<p style='font-size:30px'>     ধন্যবাদ <br> <br>   <br><br>  অন্তিম পেজে যাওয়ার জন্য পরবর্তী   পেজ টিপুন ।  <br><br><br><br> </p>",
+            button_html: ['<a href="https://swarmoi.github.io/Project-Kvanto/thankyou.html" target="_blank"> <button class="jspsych-btn"  style = "padding: 10px 20px; font-size: 20px; font-weight:800; ">%choice%</button> </a>'],
+            choices: ['পরবর্তী   পেজ  '],
+        
+          };
+          timeline.push(bye);
+   
+    /* start the experiment */
+    jsPsych.init({
+       timeline: timeline,
+       show_progress_bar: true,
+       preload_images: all_images,
+       exclusions: {
+                min_width: 800,
+                min_height: 600
+        },
+       on_finish: function() {
+                //jsPsych.data.displayData();
+       }        
+       //show_progress_bar: true
+      
+    });
